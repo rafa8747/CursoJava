@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29/07/2018 16:21:42 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="com.abctreinamentos.Curso" table="CURSO" optimistic-lock="version">
+        <id name="cdcurso" type="big_decimal">
+            <column name="CDCURSO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="nome" type="string">
+            <column name="NOME" length="80" not-null="true" />
+        </property>
+        <property name="valor" type="big_decimal">
+            <column name="VALOR" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="url" type="string">
+            <column name="URL" length="80" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
