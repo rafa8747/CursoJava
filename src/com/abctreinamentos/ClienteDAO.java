@@ -3,14 +3,11 @@ package com.abctreinamentos;
 
 import java.io.File;
 import java.util.List;
-import javax.naming.InitialContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Example;
 
 /**
  * Home object for domain model class Cliente.
@@ -40,28 +37,6 @@ public class ClienteDAO {
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
-			throw re;
-		}
-	}
-
-	public void attachDirty(Cliente instance) {
-		log.debug("attaching dirty Cliente instance");
-		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
-
-	public void attachClean(Cliente instance) {
-		log.debug("attaching clean Cliente instance");
-		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
 			throw re;
 		}
 	}
@@ -114,16 +89,18 @@ public class ClienteDAO {
 		}
 	}
 
-	public List findByExample(Cliente instance) {
-		log.debug("finding Cliente instance by example");
+	public List<Cliente> findAll () {
+		log.debug("getting All Clientes");
 		try {
-			List results = sessionFactory.getCurrentSession().createCriteria("com.abctreinamentos.Cliente")
-					.add(Example.create(instance)).list();
-			log.debug("find by example successful, result size: " + results.size());
-			return results;
+			Session session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			// HQL
+			session.getTransaction().commit();
 		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
+			log.error("getting All Clientes failed", re);
 			throw re;
 		}
+		return null;
 	}
+	
 }
