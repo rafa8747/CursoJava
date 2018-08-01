@@ -43,7 +43,8 @@ public class ClienteApp {
 					System.out.println("[2] Consultar um Cliente Escpecífico");
 					System.out.println("Informe o CPF: ");
 					cpf = entrada.nextLong();
-					dao.find(cpf);
+					Cliente cliente = dao.find(cpf);
+					System.out.println(cliente.toString());
 					break;
 				}
 
@@ -57,9 +58,8 @@ public class ClienteApp {
 					nome = entrada.nextLine();
 					System.out.println("Favor informar o E-mail: ");
 					email = entrada.nextLine();
-					// inserir (cpf, nome, email);
-					// inserirPS (cpf, nome, email);
-					// inserirSP(cpf, nome, email);
+					Cliente cliente = new Cliente(cpf, nome, email);
+					dao.persist(cliente);
 					break;
 				}
 
@@ -73,7 +73,8 @@ public class ClienteApp {
 					nome = entrada.nextLine();
 					System.out.println("Favor informar o E-mail: ");
 					email = entrada.nextLine();
-					// alterar(cpf, nome, email);
+					Cliente cliente = new Cliente(cpf, nome, email);
+					dao.merge(cliente);
 					break;
 				}
 
@@ -82,7 +83,8 @@ public class ClienteApp {
 					System.out.println("[5] Excluir um Cliente");
 					System.out.println("Informe o CPF do Cliente à ser Excluído: ");
 					cpf = entrada.nextLong();
-					// excluir(cpf);
+					Cliente cliente = dao.find(cpf);
+					dao.delete(cliente);
 					break;
 				}
 

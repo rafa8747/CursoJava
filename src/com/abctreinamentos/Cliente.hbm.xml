@@ -4,7 +4,7 @@
 <!-- Generated 29/07/2018 16:21:42 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="com.abctreinamentos.Cliente" table="CLIENTE" optimistic-lock="version">
-        <id name="cpf" type="big_decimal">
+        <id name="cpf" type="long">
             <column name="CPF" precision="22" scale="0" />
             <generator class="assigned" />
         </id>
