@@ -43,8 +43,7 @@ public class ClienteApp {
 					System.out.println("[2] Consultar um Cliente Escpecífico");
 					System.out.println("Informe o CPF: ");
 					cpf = entrada.nextLong();
-					Cliente cliente = dao.find(cpf);
-					System.out.println(cliente.toString());
+					System.out.println(dao.find(cpf));
 					break;
 				}
 

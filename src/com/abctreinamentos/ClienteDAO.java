@@ -11,6 +11,7 @@ import org.hibernate.cfg.Configuration;
 
 /**
  * Home object for domain model class Cliente.
+ * 
  * @see com.abctreinamentos.Cliente
  * @author Hibernate Tools
  */
@@ -21,10 +22,8 @@ public class ClienteDAO {
 	private final SessionFactory sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
-		SessionFactory sessionFactory = new Configuration().
-				configure(new File("src/META-INF/hibernate.cfg.xml"))
-				.buildSessionFactory();
-				return sessionFactory;
+		SessionFactory sessionFactory = new Configuration().configure(new File("src/META-INF/hibernate.cfg.xml")).buildSessionFactory();
+		return sessionFactory;
 	}
 
 	public void persist(Cliente transientInstance) {
@@ -60,7 +59,7 @@ public class ClienteDAO {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
-			session.persist(detachedInstance);
+			session.merge(detachedInstance);
 			session.getTransaction().commit();
 			log.debug("merge successful");
 		} catch (RuntimeException re) {
@@ -74,22 +73,22 @@ public class ClienteDAO {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
-			Cliente instance = (Cliente) sessionFactory.getCurrentSession().get("com.abctreinamento.Cliente", cpf);
-			session.getTransaction().commit();		
-			
+			Cliente instance = (Cliente) sessionFactory.getCurrentSession().get("com.abctreinamentos.Cliente", cpf);
+			session.getTransaction().commit();
+
 			if (instance == null) {
 				log.debug("get successful, no instance found");
-			} else {	
+			} else {
 				log.debug("get successful, instance found");
 			}
 			return instance;
 		} catch (RuntimeException re) {
-			log.error("get failed", re);
+			log.error("merge failed", re);
 			throw re;
 		}
 	}
 
-	public List<Cliente> findAll () {
+	public List<Cliente> findAll() {
 		log.debug("getting All Clientes");
 		try {
 			Session session = sessionFactory.getCurrentSession();
@@ -102,5 +101,5 @@ public class ClienteDAO {
 		}
 		return null;
 	}
-	
+
 }
