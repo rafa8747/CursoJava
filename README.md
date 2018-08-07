@@ -1,5 +1,5 @@
 ﻿# CursoJava
-Trabalho prático - Curso Web Java - Hibernate/JPA/JSP/JBDC/Servlets
+Trabalho prático - Curso Web Java - Hibernate/JPA/JSP/JDBC/Servlets
 
 Eclipse > Version: Photon Release (4.8.0)
 
