@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 /**
  * Home object for domain model class Cliente.
@@ -93,13 +94,15 @@ public class ClienteDAO {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
-			// HQL
+			String sql = "from Cliente";
+			Query query = session.createQuery(sql);
+			List<Cliente> clientes = query.list();
 			session.getTransaction().commit();
+			return clientes;
 		} catch (RuntimeException re) {
 			log.error("getting All Clientes failed", re);
 			throw re;
 		}
-		return null;
 	}
 
 }

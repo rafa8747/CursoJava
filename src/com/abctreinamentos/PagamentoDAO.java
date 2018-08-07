@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 /**
  * Home object for domain model class Pagamento.
@@ -60,7 +61,7 @@ public class PagamentoDAO {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
-			session.persist(detachedInstance);
+			session.merge(detachedInstance);
 			session.getTransaction().commit();
 			log.debug("merge successful");
 		} catch (RuntimeException re) {
@@ -74,7 +75,7 @@ public class PagamentoDAO {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
-			Pagamento instance = (Pagamento) sessionFactory.getCurrentSession().get("com.abctreinamento.Pagamento", id);
+			Pagamento instance = (Pagamento) sessionFactory.getCurrentSession().get("com.abctreinamentos.Pagamento", id);
 			session.getTransaction().commit();		
 			
 			if (instance == null) {
@@ -94,12 +95,14 @@ public class PagamentoDAO {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
-			// HQL
+			String sql = "from Pagamento";
+			Query query = session.createQuery(sql);
+			List<Pagamento> pagamentos = query.list();
 			session.getTransaction().commit();
+			return pagamentos;
 		} catch (RuntimeException re) {
 			log.error("getting All Pagamentos failed", re);
 			throw re;
 		}
-		return null;
 	}
 }

@@ -1,10 +1,11 @@
 package com.abctreinamentos;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ClienteApp {
 
-	public static void main(String[] args) {
+	public static void Cliente() {
 
 		try {
 
@@ -34,7 +35,8 @@ public class ClienteApp {
 				case 1: // Consultar todos os clientes
 				{
 					System.out.println("[1] Consultar Todos");
-					// consultarTodos();
+					List<Cliente> clientes = dao.findAll();
+					clientes.forEach(System.out::println);
 					break;
 				}
 
@@ -89,8 +91,7 @@ public class ClienteApp {
 
 				case 6: // Sair
 				{
-					System.out.println("Encerrando o Sistema... ");
-					break;
+					return;
 				}
 
 				} // switch

@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 /**
  * Home object for domain model class Curso.
@@ -60,7 +61,7 @@ public class CursoDAO {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
-			session.persist(detachedInstance);
+			session.merge(detachedInstance);
 			session.getTransaction().commit();
 			log.debug("merge successful");
 		} catch (RuntimeException re) {
@@ -74,7 +75,7 @@ public class CursoDAO {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
-			Curso instance = (Curso) sessionFactory.getCurrentSession().get("com.abctreinamento.Curso", cdcurso);
+			Curso instance = (Curso) sessionFactory.getCurrentSession().get("com.abctreinamentos.Curso", cdcurso);
 			session.getTransaction().commit();		
 			
 			if (instance == null) {
@@ -94,13 +95,15 @@ public class CursoDAO {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
-			// HQL
+			String sql = "from Curso";
+			Query query = session.createQuery(sql);
+			List<Curso> cursos = query.list();
 			session.getTransaction().commit();
+			return cursos;
 		} catch (RuntimeException re) {
 			log.error("getting All Cursos failed", re);
 			throw re;
 		}
-		return null;
 	}
 	
 }
