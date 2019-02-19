@@ -20,3 +20,4 @@ Drivers:
 	- ojbdc6
 	- hibernate-release-5.2.7.Final\lib\required
 
+OBS*: Incompleto
